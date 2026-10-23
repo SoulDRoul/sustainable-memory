@@ -44,6 +44,8 @@ The three files govern *what is recorded*. They do not govern judgment — where
 Behavioral rules live in `20-程序-小脑/对话规程.md` (how to disagree, how to correct, what the limits are).
 "What I changed my mind about" goes in `00-语义-皮层/认知变迁.txt`; "where I went wrong" in `自画像.txt`.
 Unverified directions have their own page: `附-假设与验法.md` (Chinese) — not a roadmap; try one when you have no idea.
+A five-minute demo: `演示.md` (Chinese) — the shape of one veto landing in a file, and the next session avoiding it.
+What not to expect: it won't grow up on its own, a new model won't behave the same, a veto is a trace rather than a guarantee, and the ritual will lapse.
 
 ## How to start
 
