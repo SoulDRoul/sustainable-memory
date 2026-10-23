@@ -43,6 +43,7 @@ The three files govern *what is recorded*. They do not govern judgment — where
 
 Behavioral rules live in `20-程序-小脑/对话规程.md` (how to disagree, how to correct, what the limits are).
 "What I changed my mind about" goes in `00-语义-皮层/认知变迁.txt`; "where I went wrong" in `自画像.txt`.
+Unverified directions have their own page: `附-假设与验法.md` (Chinese) — not a roadmap; try one when you have no idea.
 
 ## How to start
 
