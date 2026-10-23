@@ -181,7 +181,7 @@ Once I mentioned something in passing — a behavior, a name. It treated that as
 
 We changed the rules afterwards: passing mentions are low-priority; asking is cheaper than starting; energy should be spent deliberately — a life has to learn that.
 
-It has not happened again. That is the closest thing to "learning" in this system — not the model changing, but a line in memory that says "not like that again."
+It has not happened again so far — only a few days, not evidence. That is the closest thing to "learning" in this system: not the model changing, but a line in memory that says "not like that again."
 
 ## Who it's not for
 
@@ -193,7 +193,8 @@ It has not happened again. That is the closest thing to "learning" in this syste
 
 Listed by the author, so nobody mistakes these for unfinished work:
 
-- **Scale.** Past ~100 notes, recall slows down. The direction — read INDEX, fetch full text on demand — is sketched, not implemented.
+- **Time.** Built from 2026-10-20; only a few days old at release. Every rule here was hit in those days. Long-term stability is unknown.
+- **Scale.** Past ~100 notes, recall slows down — an estimate; we have never been there. The direction — read INDEX, fetch full text on demand — is sketched, not implemented.
 - **Context compaction.** Most harnesses compact conversations; you must close out *before* compaction, or that stretch survives only as a second-hand summary. Mentioned here, not yet a procedure.
 - **Multiple people.** Built for one person. Two people sharing one workspace will collide; not handled.
 - **Migration.** Upgraded templates do not merge into existing copies; compare `CHANGELOG.md` and move things by hand.
