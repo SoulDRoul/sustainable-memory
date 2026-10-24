@@ -104,6 +104,74 @@ def _git_run(root, *args):
     return text
 
 
+def compact_profile(text):
+    """画像的显示裁剪：只留“断言＋置信档”，出处留在原文。
+
+    这不是压缩存储，是延迟加载——要原话时去读文件。格式对不上就原样返回（兜底）。
+    """
+    lines = text.splitlines()
+    cut = None
+    for k, ln in enumerate(lines):
+        if "待核实（不算数，别引用）" in ln:
+            cut = k
+            break
+    head = lines if cut is None else lines[:cut]
+    tail = [] if cut is None else lines[cut:]
+    if tail and head and head[-1].startswith("---"):
+        tail = [head.pop()] + tail
+
+    out = []
+    conf = None
+    keep = False
+    count = 0
+    for ln in head:
+        s = ln.strip()
+        if not s:
+            if conf:
+                out.append("  〔置信 %s〕" % conf)
+                conf = None
+            if out and out[-1] != "":
+                out.append("")
+            keep = False
+            continue
+        if not ln.startswith(" "):
+            if conf:
+                out.append("  〔置信 %s〕" % conf)
+                conf = None
+            out.append(ln)
+            keep = False
+            if re.match(r"^\d{4}-\d{2}-\d{2}", s):
+                count += 1
+            continue
+        if ln.startswith("  断言："):
+            out.append(ln)
+            keep = True
+            continue
+        if keep and ln.startswith("        "):
+            out.append(ln)
+            continue
+        if ln.startswith("  置信："):
+            m = re.search(r"置信[:：]\s*(\S)", ln)
+            conf = m.group(1) if m else None
+            keep = False
+            continue
+        if ln.startswith("  修正自"):
+            out.append(ln)
+            keep = False
+            continue
+        keep = False
+    if conf:
+        out.append("  〔置信 %s〕" % conf)
+    if tail:
+        out.append("")
+        out.extend(tail)
+
+    res = "\n".join(out)
+    if count < 3 or len(res) < len(text) * 0.3:
+        return text
+    return res
+
+
 def messages(root):
     """留言只报条数，不报内容——它的规矩是“写了不必读”。"""
     p = os.path.join(root, "留言.txt")
@@ -211,7 +279,12 @@ def main():
     section("3d", "覆盖检查", "\n".join(body))
 
     section("4", "INDEX.txt", read(os.path.join(d, "INDEX.txt")))
-    section("5", "用户画像.txt", read(os.path.join(root, "00-语义-皮层", "用户画像.txt")))
+    section(
+        "5",
+        "用户画像.txt（裁剪版：断言＋置信；出处见原文）",
+        compact_profile(read(os.path.join(root, "00-语义-皮层", "用户画像.txt")))
+        + "\n\n（以上为裁剪版。要原话去读 00-语义-皮层/用户画像.txt。）",
+    )
     section("6", "git", git(root))
     section("7", "留言", messages(root))
 
