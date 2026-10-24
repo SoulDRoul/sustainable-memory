@@ -104,6 +104,19 @@ def _git_run(root, *args):
     return text
 
 
+def messages(root):
+    """留言只报条数，不报内容——它的规矩是“写了不必读”。"""
+    p = os.path.join(root, "留言.txt")
+    if not os.path.isfile(p):
+        return "（没有 留言.txt）"
+    n = 0
+    with io.open(p, encoding="utf-8") as f:
+        for line in f:
+            if re.match(r"^\d{4}-\d{2}-\d{2}", line.strip()):
+                n += 1
+    return "留言：%d 条（未读；想翻再翻，内容不在这里打）" % n
+
+
 def git(root):
     top = _git_run(root, "rev-parse", "--show-toplevel").strip()
     if top.startswith("<git 未安装"):
@@ -200,6 +213,7 @@ def main():
     section("4", "INDEX.txt", read(os.path.join(d, "INDEX.txt")))
     section("5", "用户画像.txt", read(os.path.join(root, "00-语义-皮层", "用户画像.txt")))
     section("6", "git", git(root))
+    section("7", "留言", messages(root))
 
     print("")
     print("完。判断件仍留给模型：同名取舍、覆盖之后的真新假新、要不要回读原文。")
