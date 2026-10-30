@@ -1,0 +1,3 @@
+# Python 编译缓存，不进仓库
+__pycache__/
+*.pyc
