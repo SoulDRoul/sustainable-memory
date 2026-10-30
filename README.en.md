@@ -4,7 +4,7 @@
 Author: SoulDRoul
 Collaboration & editing: Echo
 
-[English](README.en.md) | [中文](README.md)
+[English](README.en.md) | [中文](README.md) | [中文简版](README.plain.md)
 
 ## What this is
 
@@ -13,6 +13,8 @@ A method for giving an AI long-term memory that does not rely on auto-summarizat
 Its foundation is memory — not the model, not the conversation, not the cache. Change the model and it remains; start a new conversation and it remains.
 
 It does not promise to create a life. It promises one thing: **corrections you can carry across sessions** — an error is pointed out by a person; the system makes sure it is not lost and not repeated.
+
+It also does not solve: retrieval speed (there is no vector store; recall is a fixed read), several writers at once (one person by default), or making the model smarter (the memory travels; the model's habits do not).
 
 ## Why
 
@@ -35,7 +37,8 @@ Actions:
 - **Close-out**: read Current State / Veto List (and INDEX, if you keep one) → write one page → advance the Veto List's "covered through" marker to that page.
 - **Recall**: read Current State / Veto List / the chain tail. The tail is not "the newest page" — it is **the page no note lists as its previous one**; list `10-情景-海马` or read INDEX first.
 
-One iron rule: **append only; a correction is a new entry.** Memory that has been edited cannot be trusted.
+One iron rule, for session notes only: **append only; a correction is a new entry.** Memory that has been edited cannot be trusted.
+(`当前状态.txt` is the exception: it is overwritten each time, keeping only the latest.)
 
 ## Beyond notes
 
@@ -76,13 +79,15 @@ Any other time, just ask. It answers and leaves the files alone.
 
 ## The first hour
 
-Do not let the agent fill the templates. These three must be done by a human; only then is the system started:
+These three are yours to judge. The agent can draft the words; you decide. Only then is the system started:
 
 1. **Write three vetoes.** Open the Veto List and write three concrete things not to bring up again. Events, not principles.
+   (Write them yourself, or say them and let it copy — the judgment is yours.)
 2. **Write one handover note.** Three lines are enough. Second line: `[上一份: 无]` (or `none`) — the scripts only read this Chinese label.
+   Write the first one yourself so you see the shape; after that it drafts and you edit.
 3. **Correct it once.** Find one thing it got wrong and have it record the correction in `认知变迁.txt`.
 
-The AI cannot do these for you. It can help with wording, but "what was ruled out" and "what changed my mind" can only come from you.
+It cannot make these judgments for you — the wording it can draft, the judgment it cannot. "What was ruled out" and "what changed my mind" can only come from you.
 Also set the `更新` date in each header to your start date — the template says 2026-01-01.
 
 ## What happens if you don't
@@ -92,7 +97,7 @@ Also set the `更新` date in each header to your start date — the template sa
 - **No vetoes**: it will propose again the thing you said never to bring up.
 - **No correction**: the error never becomes a rule, so it happens a second time.
 
-Together, the cost is: every conversation feels like the first.
+If you do none of the four, the result is: every conversation feels like the first.
 
 ## How to tell it is working
 
@@ -128,7 +133,7 @@ The memory files are the only thing here that cannot be rebuilt. Code can be rew
 The memory files are its brain. You may read them, veto things, ask it to change them — but do not edit them behind its back.
 
 - **It writes its own**: handover notes, cognitive change log, self-portrait.
-- **You write your own**: the user profile, the veto list — copied from your words, never inferred for you.
+- **You decide your own**: the user profile, the veto list — copied from your words; it never invents them for you.
 - **Where they meet: transcribe, never infer.**
 - **To change something, go through it**: tell it what was wrong and let it record a correction. That keeps the change visible and traceable. Editing the file directly is tampering — and afterwards nobody knows it happened.
 
